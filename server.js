@@ -18,6 +18,9 @@ app.use(cors({
 
 app.use(cookieParser())
 app.use('/api', appRoute)
+app.use('/', ()=>{
+  res.send('Page not Found')
+})
 
 app.listen(port, ()=>{
   connectDB()
