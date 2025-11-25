@@ -18,7 +18,7 @@ app.use(cors({
 
 app.use(cookieParser())
 app.use('/api', appRoute)
-app.use('/', ()=>{
+app.get('/', ()=>{
   res.send('Page not Found')
 })
 
