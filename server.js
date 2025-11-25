@@ -18,9 +18,12 @@ app.use(cors({
 
 app.use(cookieParser())
 app.use('/api', appRoute)
-app.get('/', ()=>{
-  res.send('Page not Found')
-})
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
+});
 
 app.listen(port, ()=>{
   connectDB()
