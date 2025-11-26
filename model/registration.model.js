@@ -36,6 +36,10 @@ const registerSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  isBlocked: {
+    type: Boolean,
+    default: false
+  },
   role: {
     type: String,
     required: true,

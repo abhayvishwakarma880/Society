@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
 import { login, resetUserPassword, signup } from '../controller/admin.controller.js'
 import upload from '../middlewares/multer.js'
-import registerController from '../controller/register.controller.js'
+import registerController, { isBlockedController } from '../controller/register.controller.js'
 import updateRegisterController from '../controller/updateRegister.Controller.js'
 import deleteRegisterController from '../controller/deleteRegister.Controller.js'
 import getRegisterUser from '../controller/getRegister.controller.js'
@@ -87,5 +87,7 @@ appRoute.get("/workerSchedule", getAllSchedules);
 appRoute.get("/workerSchedule/:id", getScheduleById);
 appRoute.put("/workerSchedule/:id", updateSchedule);
 appRoute.delete("/workerSchedule/:id", deleteSchedule);
+
+appRoute.patch("/isBlocked/:registrationID", isBlockedController);
 
 export default appRoute

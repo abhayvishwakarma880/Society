@@ -1,4 +1,5 @@
 
+import req from "express/lib/request.js";
 import cloudinary from "../config/cloudinary.js";
 import Registerdata from "../model/registration.model.js";
 import bcrypt from 'bcryptjs'
@@ -46,7 +47,7 @@ const registerController = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    
+
     let profileImageUrl = "";
     if (req.files?.profileImage) {
       const uploadProfile = await cloudinary.uploader.upload(
@@ -85,7 +86,7 @@ const registerController = async (req, res) => {
       saveData.perHourCharge = perHourCharge;
       saveData.adharCard = adharCardUrl;
     }
-    
+
     // await needData.create({ selectCategory: saveData.serviceCategory })
     const newUser = new Registerdata(saveData);
     await newUser.save();
@@ -103,3 +104,21 @@ const registerController = async (req, res) => {
 export default registerController;
 
 
+export const isBlockedController = async (req, res) => {
+  try {
+    const { registrationID } = req.params
+    const user = await Registerdata.findOne({ registrationID });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found !" });
+    }
+
+    const { isBlocked } = req.body
+
+    const isBlockedUser = await Registerdata.findByIdAndUpdate({ registrationID }, { isBlocked })
+    return res.status(201).json({ message: "user blocked", data: isBlockedUser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Inernal Server Error", error: error.message })
+  }
+}
