@@ -88,6 +88,6 @@ appRoute.get("/workerSchedule/:id", getScheduleById);
 appRoute.put("/workerSchedule/:id", updateSchedule);
 appRoute.delete("/workerSchedule/:id", deleteSchedule);
 
-appRoute.patch("/isBlocked/:registrationID", isBlockedController);
+appRoute.get("/isBlocked/:registrationID", isBlockedController);
 
 export default appRoute

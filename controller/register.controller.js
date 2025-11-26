@@ -107,16 +107,18 @@ export default registerController;
 export const isBlockedController = async (req, res) => {
   try {
     const { registrationID } = req.params
+    console.log(registrationID)
     const user = await Registerdata.findOne({ registrationID });
+    console.log(user)
 
     if (!user) {
       return res.status(404).json({ message: "User not found !" });
     }
 
-    const { isBlocked } = req.body
 
-    const isBlockedUser = await Registerdata.findByIdAndUpdate({ registrationID }, { isBlocked })
-    return res.status(201).json({ message: "user blocked", data: isBlockedUser })
+    const isBlockedUser = await Registerdata.findOneAndUpdate({ registrationID }, { isBlocked:!user.isBlocked },{new:true})
+    console.log(isBlockedUser)
+    return res.status(201).json({ message: isBlockedUser.isBlocked?"user blocked":"user unblocked", isBlockedUser })
 
   } catch (error) {
     return res.status(500).json({ message: "Inernal Server Error", error: error.message })
