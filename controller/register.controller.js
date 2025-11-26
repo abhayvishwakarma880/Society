@@ -1,6 +1,5 @@
 
 import cloudinary from "../config/cloudinary.js";
-import needData from "../model/need.model.js";
 import Registerdata from "../model/registration.model.js";
 import bcrypt from 'bcryptjs'
 
@@ -47,8 +46,8 @@ const registerController = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
+    
     let profileImageUrl = "";
-
     if (req.files?.profileImage) {
       const uploadProfile = await cloudinary.uploader.upload(
         req.files.profileImage[0].path,
@@ -97,7 +96,6 @@ const registerController = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Server error", error: error.message });
   }
 };

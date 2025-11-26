@@ -42,7 +42,7 @@ export const addSubCategory = async (req, res) => {
       imageUrl = upload.secure_url;
     }
 
-    const category = await Category.findById(categoryId);
+    const category = await Category.findOne(categoryId._id);
 
     if (!category) {
       return res.status(404).json({ message: "Category not found" });

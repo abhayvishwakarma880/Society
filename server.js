@@ -12,8 +12,8 @@ const port = process.env.PORT || 4000
 
 app.use(express.json())
 app.use(cors({
-  origin:"*",
-  credentials:true
+  origin: "*",
+  credentials: true
 }))
 
 app.use(cookieParser())
@@ -25,7 +25,7 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, ()=>{
+app.listen(port, () => {
   connectDB()
   console.log(`server is running on http://localhost:${port}`)
 })
