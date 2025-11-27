@@ -38,8 +38,8 @@ appRoute.patch('/userResetPassword/:registrationID', verifyAdminToken, resetUser
 appRoute.patch('/forgetPassword/:registrationID', forgetPassword)
 
 appRoute.post("/carouselImage", verifyAdminToken, upload.fields([{ name: "image", maxCount: 1 }]), carouselController);
-appRoute.delete('/deleteCarosuel/:id', deleteCarouselController)
-appRoute.get('/getAllCarosuel', getAllCarouselController)
+appRoute.delete('/deleteCarosuel/:id',verifyAdminToken, deleteCarouselController)
+appRoute.get('/getAllCarosuel',verifyAdminToken, getAllCarouselController)
 
 appRoute.post("/category", verifyAdminToken, addCategory);
 appRoute.post("/category/:categoryId/subcategory", verifyAdminToken, upload.single("image"), addSubCategory);
