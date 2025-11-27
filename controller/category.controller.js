@@ -31,7 +31,6 @@ export const addSubCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
     const { name } = req.body;
-    console.log(categoryId)
     if (!name) {
       return res.status(400).json({ message: "Subcategory name required" });
     }
@@ -42,7 +41,7 @@ export const addSubCategory = async (req, res) => {
       imageUrl = upload.secure_url;
     }
 
-    const category = await Category.findOne({categoryId});
+    const category = await Category.findOne({_id:categoryId});
 
     if (!category) {
       return res.status(404).json({ message: "Category not found" });
