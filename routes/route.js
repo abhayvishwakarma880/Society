@@ -8,7 +8,7 @@ import getRegisterUser from '../controller/getRegister.controller.js'
 import loginuser from '../controller/loginUser.controller.js'
 import { verifyAdminToken } from '../middlewares/verifyAdminToken.js'
 import { forgetPassword } from '../controller/forgetPassword.controller.js'
-import carouselController from '../controller/carousel.controller.js'
+import carouselController, { deleteCarouselController, getAllCarouselController } from '../controller/carousel.controller.js'
 import { addCategory, addSubCategory, deleteCategory, deleteSubCategory, getAllCategories, getCategoryById, updateCategory, updateSubCategory } from '../controller/category.controller.js'
 import needController, { getNeed } from '../controller/need..controller.js'
 import {
@@ -38,6 +38,9 @@ appRoute.patch('/userResetPassword/:registrationID', verifyAdminToken, resetUser
 appRoute.patch('/forgetPassword/:registrationID', forgetPassword)
 
 appRoute.post("/carouselImage", verifyAdminToken, upload.fields([{ name: "image", maxCount: 1 }]), carouselController);
+appRoute.delete('/deleteCarosuel/:id', deleteCarouselController)
+appRoute.get('/getAllCarosuel', getAllCarouselController)
+
 appRoute.post("/category", verifyAdminToken, addCategory);
 appRoute.post("/category/:categoryId/subcategory", verifyAdminToken, upload.single("image"), addSubCategory);
 appRoute.put("/category/:categoryId/subcategory/:subId", verifyAdminToken, upload.single("image"), updateSubCategory);
