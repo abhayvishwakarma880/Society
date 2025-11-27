@@ -165,15 +165,15 @@ export const deleteCategory = async (req, res) => {
 export const updateCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
-    const { name } = req.body;
+    const { categoryName } = req.body;
 
-    if (!name) {
+    if (!categoryName) {
       return res.status(400).json({ message: "Category name is required" });
     }
 
     const updated = await Category.findByIdAndUpdate(
       categoryId,
-      { name },
+      { categoryName },
       { new: true }
     );
 
