@@ -1,6 +1,7 @@
 // controllers/workerSchedule.controller.js
 import mongoose from "mongoose";
 import { WorkerSchedule } from "../model/workerSchedule.model.js";
+import Registerdata from "../model/registration.model.js";
 
 /* ---------- Helpers (no regex) ---------- */
 
@@ -80,10 +81,15 @@ export const createSchedule = async (req, res) => {
       return res.status(400).json({ success: false, error: "Invalid time. Use HH:MM (24-hour)" });
     }
 
+    // console.log(workerId)
+    const w = await Registerdata.findOne({_id:workerId})
+    // console.log(w)
+
     const doc = await WorkerSchedule.create({
       worker: workerId,
       date: parsedDate,
-      time: parsedTime
+      time: parsedTime,
+      profile: w
     });
 
     return res.status(201).json({ success: true, data: doc });

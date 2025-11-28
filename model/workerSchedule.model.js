@@ -15,6 +15,9 @@ const WorkerScheduleSchema = new mongoose.Schema({
   time: {
     type: String, // "HH:MM" 24-hour string (stored as string)
     required: true
+  },
+  profile: {
+    type:Array,
   }
 }, { timestamps: true });
 
